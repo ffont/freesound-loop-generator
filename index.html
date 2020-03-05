@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Freesound Loop Generator</title>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="static/jquery/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="static/jquery/js/jquery-ui-1.10.4.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="static/bootstrap/css/slider.css" rel="stylesheet">
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap-slider.js"></script>
+    <script src="static/bootstrap/js/bootbox.min.js"></script>
+
+    <!-- web audio api -->
+    <script src="static/js/audioengine.js"></script>
+    <script src="static/js/recorder.js"></script>
+
+    <!-- My stuff -->
+    <link rel=StyleSheet href="static/css/all.css" type="text/css" >
+    <script type="text/javascript" src="static/js/all.js"></script>
+    <script type="text/javascript" src="static/js/freesound.js"></script>
+    
+</head>
+<body role="document">
+
+<!-- content -->
+<div class="container" role="main">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        init_stuff();
+
+        $(document).click(function() {
+            close_all_popovers();
+        });
+    });
+</script>
+
+<div id="top_wrapper">
+    <div id="top">
+        
+        <img src="static/images/logo.png" style="width: 500px;margin-bottom:0px;">
+
+        <div id="mode_selector">
+            <ul class="nav nav-pills nav-justified">
+                <li id="mode1"><a href="javascript:void(0);" onclick="change_mode('mode1');">Text query</a></li>
+                <li id="mode5"><a href="javascript:void(0);" onclick="change_mode('mode5');">By tags</a></li>
+                <li id="mode4"><a href="javascript:void(0);" onclick="change_mode('mode4');">Timeline</a></li>
+                <li id="mode3"><a href="javascript:void(0);" onclick="change_mode('mode3');">Similarity</a></li>
+                <li id="mode2"><a href="javascript:void(0);" onclick="change_mode('mode2');">Random</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="mode_controls"></div>
+
+    <div style="width:470px;margin: 0 auto;">
+        <div id="progress_bar_wrapper" class="progress progress-striped" style="margin-top:20px;">
+                <div id="progress_bar" class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="trigger_pad_wrapper">
+    <div id="trigger_pad">
+        <div class="trigger_row">
+            <a id="trigger_0" href="javascript:void(0);" class="btn btn-lg btn-primary trigger" data-html="true" ><span class="trigger_label">3</span></a>
+            <a id="trigger_1" href="javascript:void(0);" class="btn btn-lg btn-primary trigger" data-html="true" ><span class="trigger_label">4</span></a>
+            <a id="trigger_2" href="javascript:void(0);" class="btn btn-lg btn-primary trigger" data-html="true" ><span class="trigger_label">5</span></a>
+            <a id="trigger_3" href="javascript:void(0);" class="btn btn-lg btn-primary trigger" data-html="true" ><span class="trigger_label">6</span></a>
+        </div>
+        <div class="trigger_row">
+            <a id="trigger_4" href="javascript:void(0);" class="btn btn-lg btn-success trigger" data-html="true" ><span class="trigger_label">W</span></a>
+            <a id="trigger_5" href="javascript:void(0);" class="btn btn-lg btn-success trigger" data-html="true" ><span class="trigger_label">E</span></a>
+            <a id="trigger_6" href="javascript:void(0);" class="btn btn-lg btn-success trigger" data-html="true" ><span class="trigger_label">R</span></a>
+            <a id="trigger_7" href="javascript:void(0);" class="btn btn-lg btn-success trigger" data-html="true" ><span class="trigger_label">T</span></a>
+        </div>
+        <div class="trigger_row">
+            <a id="trigger_8" href="javascript:void(0);" class="btn btn-lg btn-warning trigger" data-html="true" ><span class="trigger_label">S</span></a>
+            <a id="trigger_9" href="javascript:void(0);" class="btn btn-lg btn-warning trigger" data-html="true" ><span class="trigger_label">D</span></a>
+            <a id="trigger_10" href="javascript:void(0);" class="btn btn-lg btn-warning trigger" data-html="true" ><span class="trigger_label">F</span></a>
+            <a id="trigger_11" href="javascript:void(0);" class="btn btn-lg btn-warning trigger" data-html="true" ><span class="trigger_label">G</span></a>
+        </div>
+        <div class="trigger_row">
+            <a id="trigger_12" href="javascript:void(0);" class="btn btn-lg btn-danger trigger" data-html="true" ><span class="trigger_label">Z</span></a>
+            <a id="trigger_13" href="javascript:void(0);" class="btn btn-lg btn-danger trigger" data-html="true" ><span class="trigger_label">X</span></a>
+            <a id="trigger_14" href="javascript:void(0);" class="btn btn-lg btn-danger trigger" data-html="true" ><span class="trigger_label">C</span></a>
+            <a id="trigger_15" href="javascript:void(0);" class="btn btn-lg btn-danger trigger" data-html="true" ><span class="trigger_label">V</span></a>
+        </div>
+    </div>
+</div>
+
+<div id="sequencer_wrapper">
+    <div id="sequencer">
+    </div>
+</div>
+
+
+<div id="bottom_controls_wrapper">
+    <div id="bottom_controls">
+        <button id="start_stop_sequencer" type="button" class="btn btn-default btn-lg" style="height:57px;" onclick="start_stop_sequencer()" title="Start/stop the sequencer at the tempo specified in the number on the right."><span class="glyphicon glyphicon-play"></button>
+        &nbsp;
+        <div style="display:inline-block;"><input id="bpm_input" type="text" class="form-control" placeholder="bpm" value="120" style="height:57px;width:55px;text-align: center;" maxlength="3"></div>
+        &nbsp;
+        <button id="randomize_sequencer" type="button" class="btn btn-default btn-lg" style="height:57px;" onclick="randomize_sequence()" title="Randomize the steps of the sequence"><span class="glyphicon glyphicon-random"></button>
+        &nbsp;
+        <button id="toggle_pad_sequencer" type="button" class="btn btn-default btn-lg" style="height:57px;" onclick="toggle_show_pad_sequencer()" title="Toggle sequence/triggers view"><span class="glyphicon glyphicon-align-justify"></button>
+        &nbsp;
+        <div id="record_controls" style="display:inline-block;background-color: #eee;border-radius:5px; padding:4px;">
+            <div style="display:inline-block;"><input id="bars_input" type="text" class="form-control" placeholder="bars" value="4"style="height:57px;width:55px;text-align: center;" maxlength="2"></div>
+            <button id="record" type="button" class="btn btn-default btn-lg" style="height:57px;color:#F31C36;" onclick="record()" title="Record (and download) as many measures as indicared in the number on the left. This works better when the sequencer is stopped."><span class="glyphicon glyphicon-record"></button><span id=download_placeholder></span>
+        </div>
+        &nbsp;<button id="download_set" type="button" class="btn btn-default btn-lg" style="height:57px;color:#00a841" onclick="render_and_download_flattened_set()" title="Download the sounds loaded in the triggers rendered as a single 32-seconds long WAV file with sounds spaced every 2 seconds"><span class="glyphicon glyphicon-download"></button><span id=download_placeholder></span>
+
+        <!-- CC filter settings -->
+        <div style="display:inline-block;margin-top:10px;">
+            License filter: 
+            <select class="form-control" id="license_select" style="width:160px;display:inline;" onchange="set_license_filter();">
+                <option value="all">All licenses</option>
+                <option value="minus_nc">Exclude CC-BY-NC</option>
+                <option value="only_0">Only CC0</option>
+            </select>
+        </div>
+            
+    </div>
+</div>
+
+</div>
+ 
+<div style="text-align:center;font-size:85%;">
+<div style="width:600px;display:inline-block;">
+<br><p>
+The <b>Freesound Loop Generator</b> is a newer version (2020 update) of the old <b>FreeMaschine!</b> hack developed by Javi Agenjo, Bram de Jong and Frederic Font at <b>Barcelona Music Hack Day 2014</b> (<a href="https://www.youtube.com/watch?v=NCYBjv2wDAw" target="_blank">see video here</a>).
+It includes a bit (not too much) of code refactoring and adds <b>export</b> functionality so you can download the loops you create.</p>
+</div>
+</div>
+
+ 
+</div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+
+.jumbotron {
+    margin-top: 20px;
+}
+
+.popover_content {
+    width:240px;
+    height:180px;
+    text-align: left;
+}
+
+.trigger {
+    width: 100px;
+    height: 100px;
+    margin-right: 5px;
+}
+
+.trigger_row {
+    margin-bottom: 10px;
+}
+
+#trigger_pad_wrapper {
+    text-align: center;
+}
+
+#trigger_pad {
+    border: solid 0px #eee;
+    border-radius: 20px;
+    padding: 20px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    width: 470px;
+    height: 470px;
+    margin: 0 auto;
+}
+
+#top_wrapper {
+    text-align: center;
+}
+
+#top {
+    margin: 0 auto;
+    width:560px;
+}
+
+#mode_controls {
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width:600px;
+}
+
+#mode_selector {
+    margin-top: 15px;
+}
+
+#bottom_controls_wrapper {
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#bottom_controls {
+    margin: 0 auto;
+    width:510px;
+}
+
+.trigger_active{
+  background-color: #f0f0f0!important;
+  -webkit-transition: border .1s linear;
+  transition: border .1s linear;
+}
+
+.trigger_label {
+    font-size: 40px;
+    line-height: 77px;
+}
+
+#sequencer_wrapper {
+    text-align: center;
+    overflow: scroll;
+    display: none;
+}
+
+#sequencer {
+    padding: 18px;
+    margin: 0 auto;
+    width: 730px;
+    height: 470px;
+    border: solid 0px #eee;
+    border-radius: 20px;
+
+}
+
+.seq_cell {
+    display: inline-block;
+    width: 40px;
+    height: 25px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+}
+
+.seq_row {
+
+}
+
+.cell_wrapper {
+    padding: 2px;
+    padding-right: 1px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    display: inline;
+}
+
+.current_cell {
+    /*background-color: #5e89cc;*/
+    background-color: #dddddd;
+    border-radius: 4px;
+}
+
+.my_disabled {
+    opacity: 0.5;
+}
+
+#dialog_results {
+    margin-top:15px;
+}
+.result {
+    display: block;
+    height: 40px;
+}
+
+/* custom btn */
+
+.btn {
+    border: 0 none;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+/* btn primary */
+
+.btn-primary {
+    background: #0099cc;
+    color: #ffffff;
+    box-shadow: none;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #33a6cc;
+    box-shadow: none;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #007299;
+    box-shadow: none;
+}
+
+/* btn success */
+
+.btn-success {
+    background: #00a841;
+    color: #ffffff;
+    box-shadow: none;
+}
+ 
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .dropdown-toggle.btn-success {
+    background: #27aa59;
+    box-shadow: none;
+}
+ 
+.btn-success:active, .btn-success.active {
+    background: #009137;
+    box-shadow: none;
+}
+
+/* btn warning */
+
+.btn-warning {
+    background: #d8ca00;
+    color: #ffffff;
+    box-shadow: none;
+}
+ 
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open > .dropdown-toggle.btn-warning {
+    background: #dad045;
+    box-shadow: none;
+}
+ 
+.btn-warning:active, .btn-warning.active {
+    background: #b9ad00;
+    box-shadow: none;
+}
+
+/* btn danger */
+
+.btn-danger {
+    background: #F31C36;
+    color: #ffffff;
+    box-shadow: none;
+}
+ 
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+    background: rgb(238, 64, 84);
+    box-shadow: none;
+}
+ 
+.btn-danger:active, .btn-danger.active {
+    background: rgb(192, 21, 41);
+    box-shadow: none;
+}
+
+/* btn default */
+
+.btn-default {
+    background: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    box-shadow: none;
+}
+ 
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    background: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    box-shadow: none;
+}
+ 
+.btn-default:active, .btn-default.active {
+    background: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    box-shadow: none;
+}
+
+/* remmove border in inputs */
+
+.form-control {
+    border: 1px solid #f5f5f5;
+    box-shadow: none;
+}
+
+/* other customizations */
+
+.pager li>a, .pager li>span {
+    border: 0 none;
+}
+
+a {
+    color: #F31C36;
+}
+
+a:hover {
+    color: rgb(243, 72, 92);
+}
+
+.nav-pills > li.active > a{
+    background-color: #F31C36;
+}
+
+.nav-pills > li.active > a:hover{
+    background-color: rgb(245, 73, 93);
+}
+
+.nav-pills > li > a:hover{
+    background-color: rgb(250, 228, 231);
+}
