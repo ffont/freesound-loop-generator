@@ -1107,3 +1107,32 @@ function render_and_download_flattened_set(filename){
         generate_attribution_file(TRIGGERS_SOUND_INFORMATION, filename + ' - attribution.txt')
     }, 100);
 }
+
+
+function export_midi_file(filename){
+    contents = "";
+
+    var file = new Midi.File();
+    var track = new Midi.Track();
+    file.addTrack(track);
+
+    var noteNames = ["c1", "c#1", "d1", "d#1", "e1", "f1", "f#1", "g1", "g#1", "a1", "a#1", "b1", "c2", "c#2", "d2", "d#2"];
+    // TODO: iterate over steps one by one, check which notes should be triggered and tigger them with Track.prototype.addChord
+    for (var i in SEQUENCE){
+        var trigger_sequence = SEQUENCE[i];
+        for (var j in trigger_sequence){
+            if (trigger_sequence[j] == 'x'){
+                track.addNote(0, noteNames[i], 64, time, velocity);
+            }
+        }
+    }
+
+    const bytes = file.toBytes();
+    const b64 = btoa(bytes);
+    const url = 'data:audio/midi;base64,' + b64;
+    const link=document.createElement('a');
+    link.href = url;
+    link.download = filename || 'sequence.mid';
+    link.click();
+    window.URL.revokeObjectURL(url);
+}
