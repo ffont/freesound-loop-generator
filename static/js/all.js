@@ -924,7 +924,7 @@ function record(filename){
     recordingLengthInSamples = recordingLengthInSeconds * 44100;
 
     if (filename === undefined){
-        recordingFilename = 'FLG ' + $("#query_terms").val() + ' ' + Date();
+        recordingFilename = 'FLG ' + $("#query_terms").val() + ' ' + Date()  + '.wav';
     } else {
         recordingFilename = filename;
     }
@@ -1011,9 +1011,9 @@ function generate_new_loops_programatically(query_term, n_variations, bpm, base_
     var nRecordingsDone = 0;
     var intervalTimer = setInterval(function () {
         if (base_filename === undefined) {
-            var filename = 'Freesound Loop Generator - ' + query_term + ' - variation ' + (nRecordingsDone + 1);
+            var filename = 'Freesound Loop Generator - ' + query_term + ' - variation ' + (nRecordingsDone + 1) + '.wav';
         } else {
-            var filename = base_filename + ' - variation ' + (nRecordingsDone + 1);
+            var filename = base_filename + ' - variation ' + (nRecordingsDone + 1) +  '.wav';
         }
         var sound_ids = [];
         for (var i in TRIGGERS_SOUND_INFORMATION){
@@ -1062,7 +1062,7 @@ function generate_new_loops_programatically_from_list(terms_variations_bpm) {
 function render_and_download_flattened_set(filename){
 
     if (filename === undefined){
-        filename = 'FLG ' + $("#query_terms").val() + ' SET ' + Date();
+        filename = 'FLG ' + $("#query_terms").val() + ' SET ' + Date() + '.wav';
     }
 
     var secondsPerSound = 2;
