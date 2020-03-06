@@ -917,7 +917,6 @@ function play_sound_from_url(url) {
 
 function record(filename){
     lazyInitAudioManager();
-
     startedRecording = context.currentTime;
     var nBars = parseInt($('#bars_input').val(), 10);
     var bpm = parseInt($('#bpm_input').val(), 10);
@@ -933,6 +932,7 @@ function record(filename){
     
     start_recording();
     if (!SEQUENCER_RUNNING){
+        CURRENT_SEQUENCE_POSITION = 0; // Restart sequence
         start_sequencer();
         sequencerStartedForRecording = true;
     }
