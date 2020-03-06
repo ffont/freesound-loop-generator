@@ -20,4 +20,3 @@ FLG source code is released under MIT license. FLG uses the following 3rd party 
 * [jsmidigen](https://github.com/dingram/jsmidgen) by Dave Ingram (MIT licensed)
 * [bootstrap](https://getbootstrap.com) by Twitter, Inc (MIT Licensed)
 * [jquery](https://jquery.com) by jQuery foundation (MIT licensed)
-* [jquery-ui](https://jqueryui.com) by jQuery foundation (MIT licensed)
