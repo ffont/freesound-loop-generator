@@ -10,3 +10,14 @@ For sound examples you can check [this pack of sounds](https://freesound.org/peo
 FLG is a newer version (2020 update) of the old **FreeMaschine!** hack developed by Javi Agenjo, Bram de Jong and Frederic 
 Font at Barcelona Music Hack Day 2014 ([see video here](https://www.youtube.com/watch?v=NCYBjv2wDAw)). It includes a bit 
 (not too much) of code refactoring, but most of the code is still pretty old and probably contains many bugs.
+
+
+## License 
+
+FLG source code is released under MIT license. FLG uses the following 3rd party libraries:
+
+* [Recorderjs](https://github.com/mattdiamond/Recorderjs) by Matt Diamond (MIT licensed)
+* [jsmidigen](https://github.com/dingram/jsmidgen) by Dave Ingram (MIT licensed)
+* [bootstrap](https://getbootstrap.com) by Twitter, Inc (MIT Licensed)
+* [jquery](https://jquery.com) by jQuery foundation (MIT licensed)
+* [jquery-ui](https://jqueryui.com) by jQuery foundation (MIT licensed)
