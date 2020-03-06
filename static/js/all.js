@@ -138,8 +138,18 @@ var CURRENTLY_CHANGED_ID_BY_TAGS = -1;
 
 var AUXILIARY_PLAYER = new Audio();
 
+
+function destroy_popovers(){
+    for (var i=0; i<16; i++){
+        var trigger_element = $('#trigger_' + i);
+        trigger_element.popover('destroy');
+    }
+}
+
 function set_popover_content(element_id){
+
     var trigger_element = $('#' + element_id);
+    trigger_element.popover('destroy');
     trigger_element.popover({
         trigger: 'manual',
         placement: 'top',
@@ -180,6 +190,8 @@ function render_inner_popover_content(element_id){
         if (MODE == "mode5") {
             html += '<a href="javascript:void(0);" onclick="change_sound_prompt(' + id + ');"><span class="glyphicon glyphicon-search" style="float:right"></span></a>';
             html += "No sound loaded..."
+        } else {
+            html += "No sound loaded..."
         }
     } else {
         var sound = TRIGGERS_SOUND_INFORMATION[id];
@@ -190,7 +202,14 @@ function render_inner_popover_content(element_id){
             } else {
                 html += render_basic_sound_info(sound);
             }
-        }        
+        } else {
+            if (MODE == "mode5") {
+                html += '<a href="javascript:void(0);" onclick="change_sound_prompt(' + id + ');"><span class="glyphicon glyphicon-search" style="float:right"></span></a>';
+                html += "No sound loaded..."
+            } else {
+                html += "No sound loaded..."
+            }
+        }       
     }
     return html;
 }
@@ -217,6 +236,10 @@ function set_progress_bar_value(value){
 function init_stuff(){
     freesound.setToken("d31c795be3f70f7f04b21aeca4c5b48a599db6e9");
     change_mode(MODE);
+
+    for (var i=0; i<16; i++){
+        set_popover_content("trigger_" + i);
+    }
 
     set_progress_bar_value(0);
 
@@ -397,6 +420,7 @@ function load_from_freesound_text_search(){
                 }
             }
             TRIGGERS_SOUND_INFORMATION = NEW_TRIGGERS_SOUND_INFORMATION;
+            destroy_popovers();
             for (var i = 0; i < 16; i++) {
                 set_popover_content("trigger_" + i);
             }
@@ -486,19 +510,29 @@ function load_from_freesound_similarity(){
     var page_size = 15;
     var ids_positions = [];
     for (i in TRIGGERS_SOUND_INFORMATION){
-        ids_positions.push(TRIGGERS_SOUND_INFORMATION[i].id);
+        if (TRIGGERS_SOUND_INFORMATION[i] !== false){
+            ids_positions.push(TRIGGERS_SOUND_INFORMATION[i].id);
+        } else {
+            ids_positions.push(false);
+        }
     }
 
     for (i in TRIGGERS_SOUND_INFORMATION){
+
+        var target_sound_id = ids_positions[i];
+        if (target_sound_id === false){
+            continue;
+        }
 
         var fn = freesound.contentSearch;
         if (filter !== undefined){
             fn = freesound.combinedSearch;
         }
         
-        fn({target:ids_positions[i], page:1, fields:fields, filter:filter, page_size:page_size, descriptors_filter:descriptors_filter},
+        fn({target:target_sound_id, page:1, fields:fields, filter:filter, page_size:page_size, descriptors_filter:descriptors_filter},
         function(sounds){
 
+            // Get target sound ID from request to know to which one this async call corresponds to
             if (sounds.next !== undefined){
                 var current_target_id = parseInt(sounds.next.split("&target=")[1].split("&")[0],10);
             } else {
@@ -538,10 +572,13 @@ function load_from_freesound_similarity(){
             set_progress_bar_value(10 + (count_replaced) * (90 / 16));
 
 
-        },function(){
-            console.log("Error while searching...");
-            TRIGGERS_SOUND_INFORMATION[i] = false;
-            set_popover_content("trigger_" + i);
+        },function(xhr){ 
+            console.log("Error while finding similar sounds...");
+            // Get target sound ID from request to know to which one this async call corresponds to
+            var current_target_id = parseInt(xhr.responseText.split("Sound with id ")[1].split(" ")[0], 10);
+            var index = ids_positions.indexOf(current_target_id);
+            TRIGGERS_SOUND_INFORMATION[index] = false;
+            set_popover_content("trigger_" + index);
         });
     }
 }
