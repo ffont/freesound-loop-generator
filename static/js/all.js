@@ -916,6 +916,8 @@ function play_sound_from_url(url) {
 }
 
 function record(filename){
+    lazyInitAudioManager();
+
     startedRecording = context.currentTime;
     var nBars = parseInt($('#bars_input').val(), 10);
     var bpm = parseInt($('#bpm_input').val(), 10);
@@ -938,6 +940,8 @@ function record(filename){
 
 function start_recording() {
     $("#record").addClass('my_disabled');
+    $("#record").attr('disabled', true);
+    $("#record_controls").addClass('recording_animation');
     lazyInitAudioManager();
     isRecording = true;
     am.startRecording();
@@ -946,6 +950,8 @@ function start_recording() {
 function stop_recording() {
     lazyInitAudioManager();
     $("#record").removeClass('my_disabled');
+    $("#record").attr('disabled', false);
+    $("#record_controls").removeClass('recording_animation');
     isRecording = false;
     startedRecording = undefined;
     shouldFinishRecording = undefined;

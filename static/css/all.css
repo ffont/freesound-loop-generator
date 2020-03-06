@@ -135,6 +135,11 @@
 .btn {
     border: 0 none;
 }
+
+button:disabled {
+    border: 0 none;
+    outline: 0 none;
+}
  
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
@@ -264,3 +269,33 @@ a:hover {
 .nav-pills > li > a:hover{
     background-color: rgb(250, 228, 231);
 }
+
+
+@keyframes flickerAnimation {
+  0%   { background-color: rgba(250, 228, 231, 255); }
+  50%  { background-color: rgba(250, 228, 231, 0); }
+  100% { background-color: rgba(250, 228, 231, 255); }
+}
+@-o-keyframes flickerAnimation{
+  0%   { background-color: rgba(250, 228, 231, 255); }
+  50%  { background-color: rgba(250, 228, 231, 0); }
+  100% { background-color: rgba(250, 228, 231, 255); }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { background-color: rgba(250, 228, 231, 255); }
+  50%  { background-color: rgba(250, 228, 231, 0); }
+  100% { background-color: rgba(250, 228, 231, 255); }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { background-color: rgba(250, 228, 231, 255); }
+  50%  { background-color: rgba(250, 228, 231, 0); }
+  100% { background-color: rgba(250, 228, 231, 255); }
+}
+
+.recording_animation {
+    -webkit-animation: flickerAnimation 1s infinite;
+   -moz-animation: flickerAnimation 1s infinite;
+   -o-animation: flickerAnimation 1s infinite;
+    animation: flickerAnimation 1s infinite;
+}
+
