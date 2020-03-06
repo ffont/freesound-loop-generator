@@ -1067,6 +1067,11 @@ function generate_new_loops_programatically_from_list(terms_variations_bpm) {
 
 function render_and_download_flattened_set(filename){
 
+    if (TRIGGERS_SOUND_INFORMATION.length === 0){
+        alert("Nothing do download as no sounds have been loaded")
+        return;
+    }
+
     if (filename === undefined){
         filename = 'FLG ' + $("#query_terms").val() + ' SET ' + Date() + '.wav';
     }
@@ -1079,20 +1084,22 @@ function render_and_download_flattened_set(filename){
 
     for (var i in TRIGGERS_SOUND_INFORMATION){
         var trigger = TRIGGERS_SOUND_INFORMATION[i];
-        var startSample = i * secondsPerSound * sampleRate;
-        var buffer = am.getBufferByName(trigger['preview']);
-        var endSample = startSample + Math.min(buffer.length, secondsPerSound * sampleRate);
+        if (trigger !== undefined){
+            var startSample = i * secondsPerSound * sampleRate;
+            var buffer = am.getBufferByName(trigger['preview']);
+            var endSample = startSample + Math.min(buffer.length, secondsPerSound * sampleRate);
 
-        var bufferDataL = buffer.getChannelData(0);
-        if (buffer.numberOfChannels > 1){
-            var bufferDataR = buffer.getChannelData(1);
-        } else {
-            var bufferDataR = bufferDataL;
-        }
+            var bufferDataL = buffer.getChannelData(0);
+            if (buffer.numberOfChannels > 1){
+                var bufferDataR = buffer.getChannelData(1);
+            } else {
+                var bufferDataR = bufferDataL;
+            }
 
-        for (var j=startSample; j<endSample; j++){
-            lBuffer[j] = bufferDataL[j - startSample];
-            rBuffer[j] = bufferDataR[j - startSample];
+            for (var j=startSample; j<endSample; j++){
+                lBuffer[j] = bufferDataL[j - startSample];
+                rBuffer[j] = bufferDataR[j - startSample];
+            }
         }
     }
 
