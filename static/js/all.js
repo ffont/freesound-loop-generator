@@ -952,6 +952,11 @@ function play_sound_from_url(url) {
     AUXILIARY_PLAYER.autoplay = true;
 }
 
+function get_date_string(){
+    var d = new Date();
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + (d.getDay() + 1)).slice(-2) + ' ' + ('0' + (d.getHours())).slice(-2) + '_' + ('0' + (d.getMinutes())).slice(-2);
+}
+
 function record(filename){
     lazyInitAudioManager();
     startedRecording = context.currentTime;
@@ -962,7 +967,7 @@ function record(filename){
     recordingLengthInSamples = recordingLengthInSeconds * 44100;
 
     if (filename === undefined){
-        recordingFilename = 'FLG ' + $("#query_terms").val() + ' ' + Date()  + '.wav';
+        recordingFilename = 'FLG ' + $("#query_terms").val() + ' ' + get_date_string()  + '.wav';
     } else {
         recordingFilename = filename;
     }
@@ -1110,7 +1115,7 @@ function render_and_download_flattened_set(filename){
     }
 
     if (filename === undefined){
-        filename = 'FLG ' + $("#query_terms").val() + ' SET ' + Date() + '.wav';
+        filename = 'FLG ' + $("#query_terms").val() + ' SET ' + get_date_string() + '.wav';
     }
 
     var secondsPerSound = 2;
@@ -1124,15 +1129,16 @@ function render_and_download_flattened_set(filename){
         if (trigger !== undefined){
             var startSample = i * secondsPerSound * sampleRate;
             var buffer = am.getBufferByName(trigger['preview']);
+            if (buffer === undefined){
+                continue;
+            }
             var endSample = startSample + Math.min(buffer.length, secondsPerSound * sampleRate);
-
             var bufferDataL = buffer.getChannelData(0);
             if (buffer.numberOfChannels > 1){
                 var bufferDataR = buffer.getChannelData(1);
             } else {
                 var bufferDataR = bufferDataL;
             }
-
             for (var j=startSample; j<endSample; j++){
                 lBuffer[j] = bufferDataL[j - startSample];
                 rBuffer[j] = bufferDataR[j - startSample];
@@ -1158,25 +1164,26 @@ function render_and_download_flattened_set(filename){
     }, 100);
 }
 
-
 function export_midi_file(filename){
-    contents = "";
+
+    if (filename === undefined){
+        filename = 'FLG ' + $("#query_terms").val() + ' SEQUENCE ' + get_date_string() + '.mid';
+    }
 
     var file = new Midi.File();
     var track = new Midi.Track();
     file.addTrack(track);
-
-    var noteNames = ["c1", "c#1", "d1", "d#1", "e1", "f1", "f#1", "g1", "g#1", "a1", "a#1", "b1", "c2", "c#2", "d2", "d#2"];
-    // TODO: iterate over steps one by one, check which notes should be triggered and tigger them with Track.prototype.addChord
-    for (var i in SEQUENCE){
-        var trigger_sequence = SEQUENCE[i];
-        for (var j in trigger_sequence){
-            if (trigger_sequence[j] == 'x'){
-                track.addNote(0, noteNames[i], 64, time, velocity);
+    // We use these note names below so that in Ableton Live first note (C2 here) is going to be C1
+    var noteNames = ["c2", "c#2", "d2", "d#2", "e2", "f2", "f#2", "g2", "g#2", "a2", "a#2", "b2", "c3", "c#3", "d3", "d#3"];
+    for (var i=0; i<SEQUENCE_LENGTH; i++){
+        var activeNotes = [];
+        for (var trigger in SEQUENCE){
+            if (SEQUENCE[trigger][i] == 'x'){
+                activeNotes.push(noteNames[parseInt(trigger, 10)]);
             }
         }
+        track.addChord(0, activeNotes, 32, 127);
     }
-
     const bytes = file.toBytes();
     const b64 = btoa(bytes);
     const url = 'data:audio/midi;base64,' + b64;

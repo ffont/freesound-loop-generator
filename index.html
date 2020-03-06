@@ -119,7 +119,10 @@
             <div style="display:inline-block;"><input id="bars_input" type="text" class="form-control" placeholder="bars" value="4"style="height:57px;width:55px;text-align: center;" maxlength="2"></div>
             <button id="record" type="button" class="btn btn-default btn-lg" style="height:57px;color:#F31C36;" onclick="record()" title="Record (and download) as many measures as indicared in the number on the left. This works better when the sequencer is stopped."><span class="glyphicon glyphicon-record"></button><span id=download_placeholder></span>
         </div>
-        &nbsp;<button id="download_set" type="button" class="btn btn-default btn-lg" style="height:57px;color:#00a841" onclick="render_and_download_flattened_set()" title="Download the sounds loaded in the triggers rendered as a single 32-seconds long WAV file with sounds spaced every 2 seconds"><span class="glyphicon glyphicon-download"></button><span id=download_placeholder></span>
+        &nbsp;
+        <button id="download_set" type="button" class="btn btn-default btn-lg" style="height:57px;color:#00a841;padding:8px;" onclick="render_and_download_flattened_set()" title="Download the sounds loaded in the triggers rendered as a single 32-seconds long WAV file with sounds spaced every 2 seconds"><img src="static/images/download_audio.svg" style="width:35px"/></button>
+        &nbsp;
+        <button id="download_midi" type="button" class="btn btn-default btn-lg" style="height:57px;;padding:8px;" onclick="export_midi_file()" title="Download the 16-step sequence as a .mid file. Should work together with the sounds set in external samplers to reproduce the same loop."><img src="static/images/download_midi.svg" style="width:35px;"/></button>
 
         <!-- CC filter settings -->
         <div style="display:inline-block;margin-top:10px;">
