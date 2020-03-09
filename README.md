@@ -1,8 +1,10 @@
 # Freesound Loop Generator
 
 The **Freesound Loop Generator** (FLG) is a tool to create music loops using sound from Freesound. It features a simple 16-steps sequencer and 16 pads with several methods to load Freesound sounds into them.  FLG allows you to export the loops you make so you can load them into your samplers, sequencers and your favorite music making software. FLG is available at [https://ffont.github.io/freesound-loop-generator/](https://ffont.github.io/freesound-loop-generator/). Also you can check some sound examples you in [this Freesound pack](https://freesound.org/people/frederic.font/packs/28449/).  
-
-  ![Freesound Loop Generator screenshot](static/images/flg_screenshot_main.png)
+  
+<p align="center">
+  <img src="static/images/flg_screenshot_main.png" title="Freesound Loop Generator screenshot">
+</p>
 
 FLG is a newer version (2020 update) of the old **FreeMaschine!** hack developed by Javi Agenjo, Bram de Jong and Frederic Font at Barcelona Music Hack Day 2014 ([see video here](https://www.youtube.com/watch?v=NCYBjv2wDAw)). It includes a bit (not too much) of code refactoring, but most of the code is still pretty old and probably contains many bugs.
 
