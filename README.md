@@ -2,9 +2,23 @@
 
 The **Freesound Loop Generator** (FLG) is a tool to create music loops using sound from Freesound. It features a simple 16-steps sequencer and 16 pads with several methods to load Freesound sounds into them.  FLG allows you to export the loops you make so you can load them into your samplers, sequencers and your favorite music making software. FLG is available at [https://ffont.github.io/freesound-loop-generator/](https://ffont.github.io/freesound-loop-generator/). Also you can check some sound examples you in [this Freesound pack](https://freesound.org/people/frederic.font/packs/28449/).  
 
-![Freesound Loop Generator screenshot](static/images/flg_screenshot_main.png)
+  ![Freesound Loop Generator screenshot](static/images/flg_screenshot_main.png)
 
 FLG is a newer version (2020 update) of the old **FreeMaschine!** hack developed by Javi Agenjo, Bram de Jong and Frederic Font at Barcelona Music Hack Day 2014 ([see video here](https://www.youtube.com/watch?v=NCYBjv2wDAw)). It includes a bit (not too much) of code refactoring, but most of the code is still pretty old and probably contains many bugs.
+
+
+## Table of Contents 
+
+  * [Features](#features)
+  * [How to use Freesound Loop Generator](#how-to-use-freesound-loop-generator)
+     * [Loading sounds into the pads](#loading-sounds-into-the-pads)
+     * [Using the sequencer](#using-the-sequencer)
+     * [Exporting loops, files and sequence](#exporting-loops-files-and-sequence)
+        * [Export loop as WAV file](#export-loop-as-wav-file)
+        * [Export pad sounds for loading in external sampler](#export-pad-sounds-for-loading-in-external-sampler)
+        * [Export sequences for loading in external sequencer](#export-sequences-for-loading-in-external-sequencer)
+        * [Example: exporting a FLG loop into Ableton Live](#example-exporting-a-flg-loop-into-ableton-live)
+  * [License](#license)
 
 
 ## Features
